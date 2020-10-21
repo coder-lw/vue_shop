@@ -1,2 +1,0 @@
-# vue_shop
-pc 
