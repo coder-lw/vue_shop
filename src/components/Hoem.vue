@@ -51,6 +51,7 @@
         </el-aside>
         <!-- 右侧主题区域 -->
         <el-main>
+          <!-- home子路由占位区域 -->
           <router-view></router-view>
         </el-main>
       </el-container>

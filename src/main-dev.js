@@ -15,25 +15,31 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 // 导入进度条的包 包括对应的js和css
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+// import NProgress from 'nprogress'
+// import 'nprogress/nprogress.css'
 
-import axios from 'axios'
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+// import axios from 'axios'
+// axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 // 请求拦截 对config做预处理
   // 请求时request中展示进度条
-axios.interceptors.request.use(config => {
-  NProgress.start();
-  // 通过axios请求拦截器添加token，保证拥有获取数据得权限
-  config.headers.Authorization = window.sessionStorage.getItem('token')
-  return config
-})
+// axios.interceptors.request.use(config => {
+//   NProgress.start();
+//   // 通过axios请求拦截器添加token，保证拥有获取数据得权限
+//   config.headers.Authorization = window.sessionStorage.getItem('token')
+//   return config
+// })
 // 在response 拦截器中 隐藏进度条
-axios.interceptors.response.use(config => {
-  NProgress.done();
-  return config
-})
-Vue.prototype.$http = axios
+// axios.interceptors.response.use(config => {
+//   NProgress.done();
+//   return config
+// })
+// Vue.prototype.$http = axios
+
+
+// 导入封装的网络请求
+import request from './network/request'
+// 把封装好的axios 挂载到Vue原型上 供全局使用
+Vue.prototype.$http = request
 
 
 Vue.config.productionTip = false
@@ -42,9 +48,9 @@ Vue.component('tree-table',TreeTable)
 
 // 将富文本编辑器 注册为全局可用得组件
 Vue.use(VueQuillEditor)
+console.log(request)
 
-
-// 定义一个时间过滤器 全局得
+// 定义一个时间过滤器 全局得 VUE的过滤器
 Vue.filter('dateFormat',function (originVal) {
   const dt = new Date(originVal)
   const y = dt.getFullYear()
@@ -56,10 +62,28 @@ Vue.filter('dateFormat',function (originVal) {
   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
 })
 
+// 继承的圣杯模式
+Vue.prototype.$inherit = (Target,Origin) => {
+  Target = Target || {}
+   // d定义一个中间的构造函数F
+	function F(){}
+	// 让中间构造函数的原型  = Origin（原始）构造函数名的原型  
+	F.prototype = Origin.prototype
+	// 再让Target（目标）构造函数的原型  = new 中间构造函数F的执行；
+	Target.prototype = new F()
+	// 由于son.__proto__  ==>   new F() 中间层 __proto__    ==>  Father.prototype
+	// 所以son的constructor指向不是自己的构造函数  而是Father的构造函数
 
+	// 下面需要改变一下constructor的指向，变为自己
+	Target.prototype.constructor = Target
+}
 
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+
+

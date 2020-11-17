@@ -237,6 +237,7 @@ export default {
   created() {
     // 请求用户列表数据
     this.getUserList()
+    
   },
   methods:{
     // 请求当前展示数据
@@ -249,7 +250,7 @@ export default {
         
         this.total = res.data.data.total
         this.isTrue = res.data.data
-        // console.log(this.userList);
+        console.log(this.userList);
       })
     },
     // 监听切换下拉菜单页

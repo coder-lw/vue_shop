@@ -61,3 +61,31 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+// es6面向对象
+class User{
+  // 构造器和类单独出来
+  constructor(name,age){
+    this.name = name
+    this.age = age
+  }
+  // 此处定义方法
+  showName(){
+    alert(this.name)
+  }
+}
+// es5实现继承  利用extends扩展  不需要改变constructor的指向了
+class VipUser extends User{
+  // 相当于VipUser 继承User
+  constructor(name,age,level){
+    // super的意思是指直接继承父级类User
+    super(name,age);
+    // 定义自己新增加的东西
+    this.level = level;
+  }
+  // 自己新定义的方法
+  showLevel(){
+    alert(level)
+  }
+}

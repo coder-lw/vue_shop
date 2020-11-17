@@ -13,11 +13,11 @@
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input prefix-icon="el-icon-lock" v-model="loginForm.password" type="password"></el-input>
+          <el-input prefix-icon="el-icon-lock" v-model="loginForm.password" type="password" @keyup.enter.native="login"></el-input>
         </el-form-item>
         <!-- 按钮 -->
         <el-form-item class="btns">
-          <el-button type="primary" @click="login">登录</el-button>
+          <el-button type="primary" @click.enter="login" >登录</el-button>
           <el-button type="info" @click="reserLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-
 export default {
   
   name:'Login',
@@ -62,6 +61,7 @@ export default {
       this.$refs.loginFormRef.resetFields()
     },
     login(){
+      
       // 预校验
       this.$refs.loginFormRef.validate((valid) => {
         // 验证失败就不发送请求
@@ -79,10 +79,6 @@ export default {
           window.sessionStorage.setItem('token', data.data.token);
           // 2、登陆成功 存储token 跳转页面 
           this.$router.push('/home')
-
-          
-
-
         })
         
       })
