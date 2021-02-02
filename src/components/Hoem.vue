@@ -1,6 +1,6 @@
 <template>
   
-    <el-container class="home-container" >
+    <el-container class="home-container boxw" >
       <!-- 头部 -->
       <el-header>
         <div>
@@ -11,11 +11,12 @@
       </el-header>
       <!-- 主题区域 -->
     
-      <el-container>
+      <el-container class="content_box">
         <!-- 侧边栏 -->
       
         <el-aside :width = "isCollapse ? '64px' : '200px'">
           <div class="toggle-button" @click="toggleCollapse">|||</div>
+          <!-- 侧边栏菜单区域 -->
           <el-menu
             :default-active="activePath"
             :router="true"
@@ -37,14 +38,14 @@
               </template>
              <!-- 二级菜单 -->
               <el-menu-item :index="'/'+subitem.path" v-for="subitem in item.children"
-               :key="subitem.id" @click="saveNavState('/'+subitem.path)">
+                :key="subitem.id" @click="saveNavState('/'+subitem.path)">
                 <!-- 二级菜单得模板区域 -->
-              <template slot="title">
-                <!-- 图标 -->
-                <i class="el-icon-menu"></i>
-                <!-- 文本 -->
-                <span>{{subitem.authName}}</span>
-              </template>
+                <template slot="title">
+                  <!-- 图标 -->
+                  <i class="el-icon-menu"></i>
+                  <!-- 文本 -->
+                  <span>{{subitem.authName}}</span>
+                </template>
               </el-menu-item>
             </el-submenu> 
           </el-menu>
@@ -110,6 +111,7 @@ export default {
   },
 
   created(){
+    console.log(this.$route)
     this.getMenuList()
     // this.$router.push('/welcome')
     this.activePath = window.sessionStorage.getItem('activePath')
@@ -119,6 +121,17 @@ export default {
 </script>
 
 <style scoped>
+.content_box{
+  width: 100%;
+  height: calc(100vh - 100px) !important;
+}
+.boxw{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 .home-container{
   height: 100%;
 }
@@ -152,7 +165,7 @@ export default {
 }
 .el-main{
   background-color:#EAEDF1;
-  height: calc(100vh - 100px);
+  height: 100%;
 }
 .iconfont{
   margin-right: 10px;

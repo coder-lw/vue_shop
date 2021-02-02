@@ -43,15 +43,12 @@ const routes = [
     {path:'/orders', component:Order},
     {path:'/reports', component:Report},
   ]},
-
-  
-
 ]
 
 const router = new VueRouter({
   routes
 })
-Rights
+
 // 请求网页的权限处理
 router.beforeEach((to, from, next) => {
   // to表示将要访问的路径

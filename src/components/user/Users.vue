@@ -22,7 +22,7 @@
         </el-row>
      <!-- 用户列表 -->
      <el-table :data="userList" border stripe max-height="600">
-       <el-table-column type="index"></el-table-column>
+       <el-table-column label="#" type="index"></el-table-column>
        <el-table-column label="姓名" prop="username"></el-table-column>
        <el-table-column label="邮箱" prop="email"></el-table-column>
        <el-table-column label="电话" prop="mobile"></el-table-column>
@@ -59,7 +59,7 @@
     </el-card>
     <!-- 添加用户的对话框 -->
     <el-dialog
-    @close="addDialogClosed"
+      @close="addDialogClosed"
       title="添加用户"
       :visible.sync="addDialogVisible" 
       width="50%">
